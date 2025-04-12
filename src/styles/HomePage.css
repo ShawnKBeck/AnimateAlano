@@ -1,5 +1,17 @@
 /* HomePage.css */
 
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+}
+
 .home-container {
   position: relative;
   width: 100%;
@@ -13,6 +25,8 @@
   height: 100%;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* For better scrolling on iOS */
 }
 
 .scene-section {

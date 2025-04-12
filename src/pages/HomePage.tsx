@@ -25,6 +25,31 @@ const HomePage: React.FC = () => {
   }, []);
   
   useEffect(() => {
+    // Reset scroll position when the component mounts and after loading
+    if (isLoaded && scrollRef.current) {
+      // Reset scroll position to top
+      scrollRef.current.scrollTop = 0;
+      
+      // Also reset window scroll position
+      window.scrollTo(0, 0);
+      
+      // Force scroll to top with a slight delay to ensure DOM is fully rendered
+      const forceScrollTimeout = setTimeout(() => {
+        if (scrollRef.current) {
+          scrollRef.current.scrollTop = 0;
+        }
+        window.scrollTo(0, 0);
+        
+        // For some browsers and deployment environments, we need an additional reset
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+      }, 100);
+      
+      return () => clearTimeout(forceScrollTimeout);
+    }
+  }, [isLoaded]);
+  
+  useEffect(() => {
     // Initialize GSAP ScrollTrigger for scene transitions
     if (containerRef.current && scrollRef.current && isLoaded) {
       const sections = gsap.utils.toArray('.scene-section');
